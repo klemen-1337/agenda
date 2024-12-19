@@ -71,8 +71,8 @@ export class BucketDetailsComponent implements OnInit {
     this.modalService.open(content);
   }
 
-  deleteBucket(modal: any) {
-    this.storageService.deleteBucket(this.bucketDetails?.id || '');
+  async deleteBucket(modal: any) {
+    await this.storageService.deleteBucket(this.bucketDetails?.id || '');
     modal.close();
     this.router.navigate(['/']);
   }
