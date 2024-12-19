@@ -55,7 +55,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let bucket of buckets">
+            <tr *ngFor="let bucket of buckets" routerLink="/bucket-details/{{ bucket.id }}">
               <td>{{ bucket.name }}</td>
               <td>{{ bucket.location }}</td>
             </tr>

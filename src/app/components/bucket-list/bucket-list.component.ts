@@ -3,10 +3,11 @@ import { Bucket } from '../../models/bucket.model';
 import { FormsModule } from '@angular/forms';
 import { StorageService } from '../../services/storage.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-bucket-list',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './bucket-list.component.html',
   styleUrl: './bucket-list.component.css'
 })

@@ -4,3 +4,10 @@ export interface Bucket {
     location: string;
     storageSize?: string;
 }
+
+export interface BucketFile {
+    bucketId: string;
+    name: string;
+    lastModified: string;
+    size: string;
+  }
