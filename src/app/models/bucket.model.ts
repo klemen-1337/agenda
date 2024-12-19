@@ -6,6 +6,7 @@ export interface Bucket {
 }
 
 export interface BucketFile {
+    id: string;
     bucketId: string;
     name: string;
     lastModified: string;

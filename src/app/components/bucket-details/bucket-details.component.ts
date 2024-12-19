@@ -5,6 +5,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from '../../services/storage.service';
 import { BucketFile } from '../../models/bucket.model';
 import { Bucket } from '../../models/bucket.model';
+import { Router } from '@angular/router';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-bucket-details',
@@ -24,6 +26,7 @@ export class BucketDetailsComponent implements OnInit {
   ];
 
   constructor(
+    private router: Router,
     private storageService: StorageService,
     private route: ActivatedRoute,
     private modalService: NgbModal
@@ -40,21 +43,49 @@ export class BucketDetailsComponent implements OnInit {
     }
   }
 
+  selectFile(file: BucketFile): void {
+    this.selectedFile = file;
+    console.log("Selected file: ", this.selectedFile);
+  }
+
   uploadFile(event: any): void {
     const file = event.target.files[0];
     if (file) {
       const newFile: BucketFile = {
+        id: uuidv4(),
         bucketId: this.bucketDetails?.id || '',
         name: file.name,
-        lastModified: new Date(file.lastModified).toLocaleDateString(),
+        lastModified: new Date(file.lastModified)
+          .toLocaleDateString('en-GB')
+          .replace(/\//g, '.'),
         size: this.formatFileSize(file.size)
       };
       this.storageService.uploadFile(newFile);
+      this.files = this.storageService.getFiles();
     }
   }
   
   setActiveTab(index: number) {
     this.tabs.forEach((tab, i) => tab.active = i === index);
+  }
+
+  confirmDelete(content: any) {
+    this.modalService.open(content);
+  }
+
+  deleteBucket(modal: any) {
+    console.log('Bucket deleted');
+    this.storageService.deleteBucket(this.bucketDetails?.id || '');
+    modal.close();
+    this.router.navigate(['/']);
+  }
+
+  deleteObject(modal: any) {
+    console.log('Object deleted');
+    if(this.selectedFile){
+      this.storageService.deleteObject(this.selectedFile.id);
+      modal.close();
+    }    
   }
 
   private formatFileSize(bytes: number): string {

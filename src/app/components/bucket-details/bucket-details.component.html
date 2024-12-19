@@ -12,7 +12,7 @@
         </div>
 
         <div *ngIf="tabs[1].active">
-            <button type="button" class="btn btn-danger">
+            <button type="button" class="btn btn-danger" (click)="confirmDelete(confirmDeleteBucketModal)">
                 Delete Bucket
             </button>
         </div>
@@ -26,17 +26,19 @@
                         All Files ({{ files.length }})
                     </h4>
                     <div>
-                        <button type="button" class="btn btn-danger">
+                        <button [disabled]="!selectedFile?.id" type="button" class="btn btn-danger"
+                            (click)="confirmDelete(confirmDeleteObjectModal)">
                             Delete Object
                         </button>
-                        <button type="button" class="btn btn-primary ms-2">
+                        <input type="file" #fileInput style="display: none" (change)="uploadFile($event)">
+                        <button class="btn btn-primary ms-2" (click)="fileInput.click()">
                             Upload Object
                         </button>
                     </div>
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -45,7 +47,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let file of files">
+                            <tr *ngFor="let file of files" (click)="selectFile(file)"
+                                [class.table-primary]="selectedFile?.id === file.id" class="cursor-pointer">
                                 <td>
                                     <i class="bi bi-file-text me-2"></i>
                                     {{ file.name }}
@@ -71,3 +74,32 @@
         </div>
     </div>
 </div>
+
+<!-- We could create a seperate component for the confimation dialog -->
+<ng-template #confirmDeleteBucketModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Confirm Delete Bucket</h4>
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <p>Do you really want to delete this bucket? This action is irreversible.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="deleteBucket(modal)">Delete</button>
+    </div>
+</ng-template>
+
+<ng-template #confirmDeleteObjectModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Confirm Delete Object</h4>
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <p>Do you really want to delete this object? This action is irreversible.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="deleteObject(modal)">Delete</button>
+    </div>
+</ng-template>
