@@ -50,7 +50,7 @@
                             <tr *ngFor="let file of files" (click)="selectFile(file)"
                                 [class.table-primary]="selectedFile?.id === file.id" class="cursor-pointer">
                                 <td>
-                                    <i class="bi bi-file-text me-2"></i>
+                                    <i class="bi bi-file-earmark-text-fill"></i>
                                     {{ file.name }}
                                 </td>
                                 <td>{{ file.lastModified }}</td>
