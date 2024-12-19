@@ -15,7 +15,7 @@ export class BucketListComponent implements OnInit {
 
   showForm = false;
   buckets: Bucket[] = [];
-  newBucket: Bucket = { id: '', name: '', location: '' };
+  newBucket: Bucket = { id: '', name: '', location: '', storageSize: '' };
   locations = ['Kranj', 'Ljubljana']
 
   constructor(
@@ -23,14 +23,25 @@ export class BucketListComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    this.buckets = this.storageService.getBuckets()
+    this.loadBuckets();
   }
 
-  createBucket(): void {
-    if (this.newBucket.name && this.newBucket.location) {
-      this.storageService.createBucket(this.newBucket);
-      this.newBucket = { id: '' , name: '', location: '' };
-      this.showForm = false;
+  async loadBuckets() {
+    try {
+      this.buckets = await this.storageService.getBuckets();
+    } catch (error) {
+      console.error('Error loading buckets:', error);
+    }
+  }
+
+  async createBucket(){
+    try {
+      const bucket = await this.storageService.createBucket(this.newBucket);
+      this.buckets.unshift(bucket);
+      this.newBucket = { id:'', name: '', location: '', storageSize: '' }; 
+      this.toggleForm();
+    } catch (error) {
+      console.error('Error creating bucket:', error);
     }
   }
 

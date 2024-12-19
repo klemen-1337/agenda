@@ -32,23 +32,21 @@ export class BucketDetailsComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('id');
-    const files = this.storageService.getFiles();
+    const files = await this.storageService.getFiles();
     this.files = files.filter(f => f.bucketId === id);
-    console.log(this.files);
 
     if(id){
-      this.bucketDetails = this.storageService.getBucketDetails(id);
+      this.bucketDetails = await this.storageService.getBucketDetails(id);
     }
   }
 
   selectFile(file: BucketFile): void {
     this.selectedFile = file;
-    console.log("Selected file: ", this.selectedFile);
   }
 
-  uploadFile(event: any): void {
+  async uploadFile(event: any): Promise<void> {
     const file = event.target.files[0];
     if (file) {
       const newFile: BucketFile = {
@@ -61,7 +59,7 @@ export class BucketDetailsComponent implements OnInit {
         size: this.formatFileSize(file.size)
       };
       this.storageService.uploadFile(newFile);
-      this.files = this.storageService.getFiles();
+      this.files.push(newFile);
     }
   }
   
@@ -74,16 +72,15 @@ export class BucketDetailsComponent implements OnInit {
   }
 
   deleteBucket(modal: any) {
-    console.log('Bucket deleted');
     this.storageService.deleteBucket(this.bucketDetails?.id || '');
     modal.close();
     this.router.navigate(['/']);
   }
 
   deleteObject(modal: any) {
-    console.log('Object deleted');
     if(this.selectedFile){
       this.storageService.deleteObject(this.selectedFile.id);
+      this.files = this.files.filter(f => f.id !== this.selectedFile?.id);
       modal.close();
     }    
   }

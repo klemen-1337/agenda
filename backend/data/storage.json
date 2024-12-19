@@ -1,0 +1,46 @@
+{
+  "buckets": [
+    {
+      "id": "c418cd51-f9f8-4c2a-afc5-60516bbc632e",
+      "name": "BestStorage",
+      "location": "Kranj",
+      "storageSize": "5GB"
+    },
+    {
+      "id": "711d5dc0-5305-459c-847f-068e3ee33a83",
+      "name": "Pics",
+      "location": "Ljubljana",
+      "storageSize": "5GB"
+    }
+  ],
+  "files": [
+    {
+      "id": "b9c84958-bd8f-472b-8cf1-febb885a664b",
+      "bucketId": "c418cd51-f9f8-4c2a-afc5-60516bbc632e",
+      "name": "FileName01",
+      "lastModified": "06.09.2015",
+      "size": "2MB"
+    },
+    {
+      "id": "e65efa78-93f3-4534-96eb-179817620c66",
+      "bucketId": "c418cd51-f9f8-4c2a-afc5-60516bbc632e",
+      "name": "FileName02",
+      "lastModified": "05.01.2015",
+      "size": "100KB"
+    },
+    {
+      "id": "d3be3d4c-87c2-4ecb-b276-474f4316db52",
+      "bucketId": "c418cd51-f9f8-4c2a-afc5-60516bbc632e",
+      "name": "FileName03",
+      "lastModified": "12.11.2016",
+      "size": "2MB"
+    },
+    {
+      "id": "ea83b027-676e-459c-a47a-05d9933f34b7",
+      "bucketId": "711d5dc0-5305-459c-847f-068e3ee33a83",
+      "name": "angular-developer_2024_2.pdf",
+      "lastModified": "18.12.2024",
+      "size": "96.2 KB"
+    }
+  ]
+}
