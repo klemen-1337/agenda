@@ -1,0 +1,68 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Bucket list</h2>
+
+  <div *ngIf="showForm" class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h4 class="card-title text-secondary mb-3">Create New Bucket</h4>
+
+      <form (ngSubmit)="createBucket()">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="bucketName" class="form-label">Bucket Name*</label>
+            <input type="text" class="form-control" id="bucketName" [(ngModel)]="newBucket.name" name="bucketName"
+              placeholder="Enter bucket name" required />
+          </div>
+
+          <div class="col-md-6">
+            <label for="location" class="form-label">Bucket Location*</label>
+            <select class="form-select" id="location" [(ngModel)]="newBucket.location" name="location" required>
+              <option value="">Select location</option>
+              <option *ngFor="let location of locations" [value]="location">
+                {{ location }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-start mt-4">
+          <button type="submit" class="btn btn-primary me-2" [disabled]="!newBucket.name || !newBucket.location">
+            Create Bucket
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="card-title text-secondary">
+          All Buckets ({{ buckets.length }})
+        </h4>
+        <div *ngIf="!showForm">
+          <button type="button" class="btn btn-primary" (click)="toggleForm()">
+            Create New Bucket
+          </button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-primary">
+            <tr>
+              <th>Name</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let bucket of buckets">
+              <td>{{ bucket.name }}</td>
+              <td>{{ bucket.location }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
