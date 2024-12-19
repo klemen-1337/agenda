@@ -2,3 +2,6 @@
 body{
     background-color: rgb(243, 243, 243);
 }
+td:hover{
+    cursor: pointer;
+}
