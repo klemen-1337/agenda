@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { StorageService } from '../../services/storage.service';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-bucket-list',
   imports: [CommonModule, FormsModule],
@@ -15,7 +14,7 @@ export class BucketListComponent implements OnInit {
 
   showForm = false;
   buckets: Bucket[] = [];
-  newBucket: Bucket = { name: '', location: '' };
+  newBucket: Bucket = { id: '', name: '', location: '' };
   locations = ['Kranj', 'Ljubljana']
 
   constructor(
@@ -29,7 +28,7 @@ export class BucketListComponent implements OnInit {
   createBucket(): void {
     if (this.newBucket.name && this.newBucket.location) {
       this.storageService.createBucket(this.newBucket);
-      this.newBucket = { name: '', location: '' };
+      this.newBucket = { id: '' , name: '', location: '' };
       this.showForm = false;
     }
   }
