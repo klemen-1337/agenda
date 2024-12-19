@@ -8,6 +8,8 @@ To run the application using docker container, just run:
 ```
 docker-compose up --build -d
 ```
+Application will be visible on: http://localhost:4200/
+
 ## Run manual dev
 
 ### Frontend
